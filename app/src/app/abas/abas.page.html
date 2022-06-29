@@ -1,0 +1,42 @@
+<ion-tabs>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-row>
+        <ion-title>
+          {{titulo}}
+        </ion-title>
+        <ion-title style="text-align: right;">
+          <ion-icon (click)="onToggleColorTheme()" name="contrast"></ion-icon>
+        </ion-title>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="materias" (click)="alterTitle('Matérias')">
+      <ion-icon name="book"></ion-icon>
+      <ion-label>Matérias</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tarefas" (click)="alterTitle('Tarefas')">
+      <ion-icon name="checkbox"></ion-icon>
+      <ion-label>Tarefas</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="calendario" (click)="alterTitle('Calendário')">
+      <ion-icon name="calendar"></ion-icon>
+      <ion-label>Calendário</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="notas" (click)="alterTitle('Notas')">
+      <ion-icon name="bookmarks"></ion-icon>
+      <ion-label>Notas</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="resumos" (click)="alterTitle('Resumos')">
+      <ion-icon name="document-text"></ion-icon>
+      <ion-label>Resumos</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs>
