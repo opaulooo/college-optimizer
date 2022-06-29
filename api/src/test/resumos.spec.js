@@ -1,3 +1,6 @@
+/// IGNORAR
+
+/*
 const request = require('supertest')
 const {
     app
@@ -17,3 +20,4 @@ describe('Teste POST Calcular Comissao', () => {
         expect(res.body).toHaveProperty('college')
     })
 })
+*/

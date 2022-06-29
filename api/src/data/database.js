@@ -1,6 +1,6 @@
 var sqlite3 = require("sqlite3").verbose();
 
-DBSOURCE = "./college.db";
+DBSOURCE = "./src/data/college.db";
 
 let db = new sqlite3.Database(DBSOURCE, (err) => {
   if (err) {
@@ -9,8 +9,21 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
     throw err;
   } else {
     console.log("Conectado no banco SQLite college.");
-    const tabelas = [``,
-      
+    const tabelas = [
+      `
+        CREATE TABLE RESUMOS
+        (
+          ID INTEGER PRIMARY KEY AUTOINCREMENT,
+          titulo text,
+          breveDescricao text,
+          resumo blob,
+          dataCriacao date,
+          dataUltimaAtualizacao date,
+          dataDeletado date,
+          deletado boolean
+        )
+      `,
+
     ];
 
     tabelas.forEach((tabela) => {

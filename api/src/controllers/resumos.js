@@ -1,18 +1,107 @@
-const metas = require('../data/metas')
-const getDatas = require('../utils/funcoes')
-
+const utils = require('../utils/funcoes')
+const db = require('../data/database')
 
 async function getResumos() {
     return new Promise(async (res, rej) => {
         var resumos;
 
-        await getDatas().then((response)=>{
-            console.log(response)
+        let query = `SELECT * FROM RESUMOS WHERE Deletado = false;`;
+
+        await utils.getData(query).then((response) => {
             resumos = response;
+        }).catch((err) => {
+            console.log(err);
         })
 
         res(resumos)
     })
+}
+
+async function postResumo(resumo) {
+    return new Promise(async (res, rej) => {
+
+        let data = (new Date().getTime());
+        let addResumo = {
+            titulo: resumo.titulo,
+            breveDescricao: resumo.breveDescricao,
+            resumo: resumo.resumo,
+            dataCriacao: data,
+            dataUltimaAtualizacao: data,
+            dataDeletado: null,
+            deletado: false,
+        }
+
+        query = `
+                    INSERT INTO RESUMOS(${Object.keys(addResumo).join(",")})
+                    values(${'?'.repeat(Object.keys(addResumo).length).split('').join(',')})
+                `;
+
+        params = Object.values(addResumo);
+
+        try {
+            db.run(query, params);
+            res({
+                ok: true
+            });
+        } catch (err) {
+            console.log(err);
+            res({
+                ok: false
+            });
+        }
+    });
+}
+
+async function putResumo(resumo) {
+    return new Promise(async (res, rej) => {
+
+        let data = (new Date().getTime());
+        query = `
+                    UPDATE RESUMOS SET
+                    titulo = '${resumo.titulo}',
+                    breveDescricao = '${resumo.breveDescricao}',
+                    resumo = '${resumo.resumo}',
+                    dataUltimaAtualizacao = ${data}
+                    WHERE ID = '${resumo.id}'
+                `;
+
+        try {
+            db.run(query);
+            res({
+                ok: true
+            });
+        } catch (err) {
+            console.log(err);
+            res({
+                ok: false
+            });
+        }
+    });
+}
+
+async function deleteResumo(resumo) {
+    return new Promise(async (res, rej) => {
+
+        let data = (new Date().getTime());
+        query = `
+                    UPDATE RESUMOS SET
+                    dataDeletado = ${data},
+                    deletado = true
+                    WHERE ID = '${resumo.id}'
+                `;
+
+        try {
+            db.run(query);
+            res({
+                ok: true
+            });
+        } catch (err) {
+            console.log(err);
+            res({
+                ok: false
+            });
+        }
+    });
 }
 
 
@@ -23,60 +112,87 @@ module.exports = {
             resumos = response;
             res.send(resumos)
         }).catch((err) => {
-            // console.log('\nHouve um erro ao retornar as comissões dos vendedores!\n')
             // console.log(err)
             res.send(err)
         })
     },
+
     async post(req, res) {
-        var comissao = req.body;
-        var comissoes = null;
-        await calculaComissao(comissao).then(async (response1) => {
-            await calculaBonus(response1).then(async (response2) => {
+        var resumo = req.body;
+        await postResumo(resumo).then(async (response) => {
+            if (response.ok) {
+                
+                console.log("Resumo Adicionado com Sucesso!")
 
-                comissoes = response2;
-
-                // console.log('\nComissões dos vendedores retornadas com sucesso!\n')
-                res.send({
-                    comissoes
-                })
-            })
-
+                res({
+                    ok: true,
+                    response: "Resumo Adicionado com Sucesso!"
+                });
+            } else {
+                res.json({
+                    ok: true,
+                    error: err
+                });
+            }
         }).catch((err) => {
-            // console.log('\nHouve um erro ao retornar as comissões dos vendedores!\n')
             // console.log(err)
-            res.send(err)
+            res.json({
+                ok: true,
+                error: err
+            });
         })
     },
+
     async update(req, res) {
-        var comissao = req.body;
-        var comissoes = null;
-        await calculaComissao(comissao).then(async (response1) => {
-            await calculaBonus(response1).then(async (response2) => {
+        var resumo = req.body;
+        await putResumo(resumo).then(async (response) => {
+            if (response.ok) {
 
-                comissoes = response2;
-
-                // console.log('\nComissões dos vendedores retornadas com sucesso!\n')
-                res.send({
-                    comissoes
-                })
-            })
-
+                console.log("Resumo Atualizado com Sucesso!")
+                res.json({
+                    ok: true,
+                    response: "Resumo Atualizado com Sucesso!"
+                });
+            } else {
+                res.json({
+                    ok: true,
+                    error: err
+                });
+            }
         }).catch((err) => {
-            // console.log('\nHouve um erro ao retornar as comissões dos vendedores!\n')
             // console.log(err)
-            res.send(err)
+            res.json({
+                ok: true,
+                error: err
+            });
         })
+
     },
+
     async delete(req, res) {
-        var comissao = req.body;
 
-        await calculaComissao(comissao).then(async (response1) => {
+        var resumo = req.body;
+        await deleteResumo(resumo).then(async (response) => {
+            if (response.ok) {
 
+                console.log("Resumo Deletado com Sucesso!")
+
+                res.json({
+                    ok: true,
+                    response: "Resumo Deletado com Sucesso!"
+                });
+            } else {
+                res.json({
+                    ok: true,
+                    error: err
+                });
+            }
         }).catch((err) => {
-            // console.log('\nHouve um erro ao retornar as comissões dos vendedores!\n')
             // console.log(err)
-            res.send(err)
+            res.json({
+                ok: true,
+                error: err
+            });
         })
     },
 }

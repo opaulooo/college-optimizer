@@ -1,7 +1,7 @@
-const db = require("../../database");
+const db = require("../data/database");
 
 module.exports = {
-    async getDatas(query) {
+    async getData(query) {
         return new Promise((resolve, reject) => {
             var retorno = [];
             db.all(query, [], (err, rows) => {
