@@ -6,12 +6,12 @@
     </ion-item>
     <ion-item>
       <ion-label position="stacked"><b>Descrição</b></ion-label>
-      <ion-input formControlName="descricao"></ion-input>
+      <ion-textarea rows="10" formControlName="descricao"></ion-textarea>
     </ion-item>
     <ion-item>
       <ion-label position="stacked"><b>Período</b></ion-label>
       <ion-select formControlName="periodo">
-        <ion-select-option *ngFor="let option of periodos" [value]="option.id">{{ option.nome }}</ion-select-option>
+        <ion-select-option *ngFor="let option of periodos" [value]="option">{{ option }}</ion-select-option>
       </ion-select>
     </ion-item>
   </form>

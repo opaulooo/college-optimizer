@@ -23,13 +23,16 @@ export class MateriasDetalhesComponent implements OnInit {
     deletado: new FormControl(false)
   });
   periodos = [
-    { id: 1, nome: '1º período' },
-    { id: 2, nome: '2º período' },
-    { id: 3, nome: '3º período' },
-    { id: 4, nome: '4º período' },
-    { id: 5, nome: '5º período' },
-    { id: 6, nome: '6º período' },
-    { id: 7, nome: '7º período' },
+    '1º período',
+    '2º período',
+    '3º período',
+    '4º período',
+    '5º período',
+    '6º período',
+    '7º período',
+    '8º período',
+    '9º período',
+    '10º período',
   ];
 
   constructor(private navCtrl: NavController, private router: Router, private route: ActivatedRoute) {
@@ -39,7 +42,17 @@ export class MateriasDetalhesComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (!this.materia && this.editar) {
+      this.navCtrl.navigateRoot('/abas/materias');
+    }
+
+    if (this.editar){
+      this.createEditarForm();
+    } else {
+      this.createNovoForm();
+    }
+  }
 
   createNovoForm(){
     this.materiaForm = new FormGroup({
