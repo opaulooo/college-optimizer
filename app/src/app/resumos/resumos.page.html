@@ -1,9 +1,9 @@
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Resumos</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Resumos"></app-explore-container>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="card" size="6" *ngFor="let resumo of resumos" [style.padding]="3">
+        <app-card (click)="irDetalhes(resumo)" [resumo]="resumo"></app-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
