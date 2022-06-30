@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CalendarioPage } from './calendario.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
-
 import { CalendarioPageRoutingModule } from './calendario-routing.module';
+import { NgCalendarModule  } from 'ionic2-calendar';
 
 @NgModule({
   imports: [
@@ -16,6 +16,7 @@ import { CalendarioPageRoutingModule } from './calendario-routing.module';
     ExploreContainerComponentModule,
     RouterModule.forChild([{ path: '', component: CalendarioPage }]),
     CalendarioPageRoutingModule,
+    NgCalendarModule,
   ],
   declarations: [CalendarioPage]
 })
