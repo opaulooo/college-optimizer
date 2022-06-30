@@ -1,7 +1,7 @@
 const express = require('express')
 
 const app = express()
-const port = 8100
+const port = 8000
 
 let comissaoRoute = require('./src/routes/routes')
 let bodyParser = require('body-parser');
