@@ -10,7 +10,7 @@
     </ion-item>
     <ion-item>
       <ion-label position="stacked"><b>Resumo</b></ion-label>
-      <ion-textarea rows="26" formControlName="resumo"></ion-textarea>
+      <ion-textarea rows="17" formControlName="resumo"></ion-textarea>
     </ion-item>
   </form>
   <ion-footer>
@@ -19,10 +19,11 @@
         <ion-button (click)="voltar()">Voltar</ion-button>
       </ion-col>
       <ion-col class="center" size="4">
-        <ion-button color="success">Atualizar</ion-button>
+        <ion-button *ngIf="editar" color="success">Atualizar</ion-button>
       </ion-col>
       <ion-col class="center" size="4">
-        <ion-button color="danger">Deletar</ion-button>
+        <ion-button *ngIf="editar" color="danger">Deletar</ion-button>
+        <ion-button *ngIf="!editar" color="success">Adicionar</ion-button>
       </ion-col>
     </ion-row>
   </ion-footer>

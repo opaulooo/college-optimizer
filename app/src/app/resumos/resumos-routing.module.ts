@@ -9,8 +9,18 @@ const routes: Routes = [
     component: ResumosPage,
   },
   {
-    path: 'detalhes',
-    component: ResumosDetalhesComponent, 
+    path: 'editar',
+    component: ResumosDetalhesComponent,
+    data: {
+      editar: true
+    }
+  },
+  {
+    path: 'novo',
+    component: ResumosDetalhesComponent,
+    data: {
+      editar: false
+    }
   }
 ];
 

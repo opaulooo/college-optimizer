@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { IResumo } from '../shared/interfaces/resumo';
@@ -75,7 +76,7 @@ export class ResumosPage {
       A
       A
       A
-      
+
       A
       A
       A
@@ -83,7 +84,7 @@ export class ResumosPage {
       A
       A
       A
-      
+
       A
       A
       A
@@ -92,7 +93,7 @@ export class ResumosPage {
       A
       A
       A
-      
+
       A
       A
       A
@@ -110,8 +111,12 @@ export class ResumosPage {
   constructor(private navCtrl: NavController) {}
 
   irDetalhes(resumo: IResumo){
-    this.navCtrl.navigateForward('/abas/resumos/detalhes', {
+    this.navCtrl.navigateForward('/abas/resumos/editar', {
       state: resumo
     });
+  }
+
+  irAdicionar(){
+    this.navCtrl.navigateForward('/abas/resumos/novo');
   }
 }

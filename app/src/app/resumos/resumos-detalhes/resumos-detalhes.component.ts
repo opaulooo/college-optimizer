@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { IResumo } from 'src/app/shared/interfaces/resumo';
 
@@ -10,6 +10,7 @@ import { IResumo } from 'src/app/shared/interfaces/resumo';
   styleUrls: ['./resumos-detalhes.component.scss'],
 })
 export class ResumosDetalhesComponent implements OnInit {
+  editar = false;
   resumo: IResumo;
 
   resumoForm: FormGroup = new FormGroup({
@@ -20,23 +21,42 @@ export class ResumosDetalhesComponent implements OnInit {
     dataUltimaAtualizacao: new FormControl(new Date()),
     dataDeletado: new FormControl(null),
     deletado: new FormControl(false)
-  })
-  
-  constructor(private router: Router, private navCtrl: NavController) { 
+  });
+
+  constructor(private router: Router, private navCtrl: NavController, private route: ActivatedRoute) {
     this.resumo = this.router.getCurrentNavigation().extras.state as IResumo;
-    
-    if (!this.resumo) {
-      this.navCtrl.navigateRoot('/abas');
-    }  
+    this.route.data.subscribe(res => {
+      this.editar = res.editar;
+    });
+
+    console.log(this.resumo, this.editar);
   }
 
   ngOnInit() {
-    if (this.resumo){
-      this.createForm();
+    if (!this.resumo && this.editar) {
+      this.navCtrl.navigateRoot('/abas/resumos');
+    }
+
+    if (this.editar){
+      this.createEditarForm();
+    } else {
+      this.createNovoForm();
     }
   }
 
-  createForm(){
+  createNovoForm(){
+    this.resumoForm = new FormGroup({
+      titulo: new FormControl('', Validators.required),
+      breveDescricao: new FormControl('', Validators.required),
+      resumo: new FormControl(''),
+      dataCriacao: new FormControl(new Date()),
+      dataUltimaAtualizacao: new FormControl(new Date()),
+      dataDeletado: new FormControl(null),
+      deletado: new FormControl(false)
+    });
+  }
+
+  createEditarForm(){
     this.resumoForm = new FormGroup({
       titulo: new FormControl(this.resumo.titulo, Validators.required),
       breveDescricao: new FormControl(this.resumo.breveDescricao, Validators.required),
@@ -45,7 +65,7 @@ export class ResumosDetalhesComponent implements OnInit {
       dataUltimaAtualizacao: new FormControl(new Date()),
       dataDeletado: new FormControl(null),
       deletado: new FormControl(false)
-    })
+    });
   }
 
   voltar() {
