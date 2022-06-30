@@ -58,7 +58,7 @@ export class MateriasDetalhesComponent implements OnInit {
     this.materiaForm = new FormGroup({
       titulo: new FormControl('', Validators.required),
       descricao: new FormControl('', Validators.required),
-      periodo: new FormControl(''),
+      periodo: new FormControl('', Validators.required),
       dataCriacao: new FormControl(new Date()),
       dataUltimaAtualizacao: new FormControl(new Date()),
       dataDeletado: new FormControl(null),
