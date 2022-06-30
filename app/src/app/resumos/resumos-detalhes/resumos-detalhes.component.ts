@@ -28,8 +28,6 @@ export class ResumosDetalhesComponent implements OnInit {
     this.route.data.subscribe(res => {
       this.editar = res.editar;
     });
-
-    console.log(this.resumo, this.editar);
   }
 
   ngOnInit() {

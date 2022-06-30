@@ -1,0 +1,24 @@
+ion-item {
+  margin: 3px;
+  border: 1px solid #dfdfdf;
+  border-radius: 10px;
+}
+
+.nome {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 35ch;
+}
+
+.descricao {
+  font-size: 13px;
+}
+
+.date {
+  font-size: 12px;
+  float: right;
+}
