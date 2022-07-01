@@ -14,9 +14,9 @@ export class MateriasDetalhesComponent implements OnInit {
   materia: IMateria;
 
   materiaForm: FormGroup = new FormGroup({
-    nome: new FormControl('', Validators.required),
-    descricao: new FormControl('', Validators.required),
-    periodo: new FormControl(''),
+    nome: new FormControl(null, Validators.required),
+    descricao: new FormControl(null, Validators.required),
+    periodo: new FormControl(null),
     dataCriacao: new FormControl(new Date()),
     dataUltimaAtualizacao: new FormControl(new Date()),
     dataDeletado: new FormControl(null),
@@ -56,7 +56,7 @@ export class MateriasDetalhesComponent implements OnInit {
 
   createNovoForm(){
     this.materiaForm = new FormGroup({
-      titulo: new FormControl('', Validators.required),
+      nome: new FormControl('', Validators.required),
       descricao: new FormControl('', Validators.required),
       periodo: new FormControl('', Validators.required),
       dataCriacao: new FormControl(new Date()),
@@ -79,6 +79,8 @@ export class MateriasDetalhesComponent implements OnInit {
   }
 
   voltar() {
+    console.log('voltar')
+    console.log(this.navCtrl.pop())
     this.navCtrl.pop();
   }
 
