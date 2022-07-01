@@ -1,2 +1,3 @@
 
 *.db
+api/src/data/college.db

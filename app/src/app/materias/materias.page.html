@@ -1,9 +1,12 @@
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Matérias</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Matérias"></app-explore-container>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="irAdicionar()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list lines="none">
+    <ion-item *ngFor="let materia of materias">
+      <app-materia-card [materia]="materia" (click)="irDetalhes(materia)"></app-materia-card>
+    </ion-item>
+  </ion-list>
 </ion-content>

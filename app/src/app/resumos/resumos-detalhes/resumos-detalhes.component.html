@@ -1,0 +1,30 @@
+<ion-content>
+  <form [formGroup]="resumoForm">
+    <ion-item>
+      <ion-label position="stacked"><b>Título</b></ion-label>
+      <ion-input formControlName="titulo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><b>Descrição</b></ion-label>
+      <ion-input formControlName="breveDescricao"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><b>Resumo</b></ion-label>
+      <ion-textarea rows="17" formControlName="resumo"></ion-textarea>
+    </ion-item>
+  </form>
+  <ion-footer>
+    <ion-row>
+      <ion-col class="center" size="4">
+        <ion-button (click)="voltar()">Voltar</ion-button>
+      </ion-col>
+      <ion-col class="center" size="4">
+        <ion-button *ngIf="editar" color="success">Atualizar</ion-button>
+      </ion-col>
+      <ion-col class="center" size="4">
+        <ion-button *ngIf="editar" color="danger">Deletar</ion-button>
+        <ion-button *ngIf="!editar" color="success">Adicionar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-footer>
+</ion-content>

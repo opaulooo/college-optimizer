@@ -1,0 +1,32 @@
+<ion-content>
+  <form [formGroup]="materiaForm">
+    <ion-item>
+      <ion-label position="stacked"><b>Nome</b></ion-label>
+      <ion-input formControlName="nome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><b>Descrição</b></ion-label>
+      <ion-textarea rows="10" formControlName="descricao"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><b>Período</b></ion-label>
+      <ion-select formControlName="periodo">
+        <ion-select-option *ngFor="let option of periodos" [value]="option">{{ option }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </form>
+  <ion-footer>
+    <ion-row>
+      <ion-col class="center" size="4">
+        <ion-button (click)="voltar()">Voltar</ion-button>
+      </ion-col>
+      <ion-col class="center" size="4">
+        <ion-button *ngIf="editar" color="success">Atualizar</ion-button>
+      </ion-col>
+      <ion-col class="center" size="4">
+        <ion-button *ngIf="editar" color="danger">Deletar</ion-button>
+        <ion-button *ngIf="!editar" color="success">Adicionar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-footer>
+</ion-content>
