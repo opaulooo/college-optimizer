@@ -22,9 +22,9 @@ async function postMateria(materia) {
 
         let data = (new Date().getTime());
 
-
         let addMateria = {
             materia: materia.materia,
+            titulo: materia.titulo,
             periodo: materia.periodo,
             descricao: materia.descricao,
             dataCriacao: data,
@@ -37,7 +37,6 @@ async function postMateria(materia) {
                     INSERT INTO MATERIAS(${Object.keys(addMateria).join(",")})
                     values(${'?'.repeat(Object.keys(addMateria).length).split('').join(',')})
                 `;
-
         params = Object.values(addMateria);
         try {
             db.run(query, params);
@@ -60,6 +59,7 @@ async function putMateria(materia) {
         query = `
                     UPDATE MATERIAS SET
                     materia = '${materia.materia}',
+                    titulo = '${materia.titulo}',
                     periodo = '${materia.periodo}',
                     descricao = '${materia.descricao}',
                     dataUltimaAtualizacao = ${data}

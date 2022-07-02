@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { IMateria } from '../shared/interfaces/materia';
 import { DataService } from '../../../providers/service/data-service';
-import { ResponseGet } from '../shared/interfaces/response-gets';
 
 @Component({
   selector: 'app-materias-page',
@@ -21,8 +20,7 @@ export class MateriasPage {
   }
 
   async ionViewDidLoad() {
-    this.service.getMateria('materias').subscribe((response) => {
-      console.log(response)
+    this.service.getMaterias('materias').subscribe((response) => {
       this.materias = response;
     });
   }
@@ -35,18 +33,7 @@ export class MateriasPage {
     }, 2000);
   }
 
-  temaClaro() {
-    if (document.body.getAttribute('color-theme') == 'light') {
-      console.log(true)
-      return true
-    } else {
-      console.log(false)
-      return false
-    }
-  }
-
   irDetalhes(materia: IMateria) {
-    console.log(materia)
     this.navCtrl.navigateForward('/abas/materias/editar', {
       state: materia
     }).then(() => {
@@ -56,7 +43,6 @@ export class MateriasPage {
   }
 
   irAdicionar() {
-    console.log('hello')
     this.navCtrl.navigateForward('/abas/materias/novo').then(() => {
       this.ionViewDidLoad();
     });

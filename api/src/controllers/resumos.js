@@ -1,4 +1,4 @@
-// const utils = require('../utils/funcoes')
+const utils = require('../utils/funcoes')
 const db = require('../data/database')
 
 async function getResumos() {
@@ -23,6 +23,7 @@ async function postResumo(resumo) {
         let data = (new Date().getTime());
         let addResumo = {
             titulo: resumo.titulo,
+            materia: resumo.materia,
             breveDescricao: resumo.breveDescricao,
             resumo: resumo.resumo,
             dataCriacao: data,
@@ -56,14 +57,17 @@ async function putResumo(resumo) {
     return new Promise(async (res, rej) => {
 
         let data = (new Date().getTime());
+        
         query = `
                     UPDATE RESUMOS SET
                     titulo = '${resumo.titulo}',
+                    materia = '${resumo.titulo}',
                     breveDescricao = '${resumo.breveDescricao}',
                     resumo = '${resumo.resumo}',
                     dataUltimaAtualizacao = ${data}
-                    WHERE ID = '${resumo.id}'
+                    WHERE ID = ${resumo.ID}
                 `;
+                
 
         try {
             db.run(query);
@@ -79,7 +83,7 @@ async function putResumo(resumo) {
     });
 }
 
-async function deleteResumo(resumo) {
+async function deleteResumo(id) {
     return new Promise(async (res, rej) => {
 
         let data = (new Date().getTime());
@@ -87,7 +91,7 @@ async function deleteResumo(resumo) {
                     UPDATE RESUMOS SET
                     dataDeletado = ${data},
                     deletado = true
-                    WHERE ID = '${resumo.id}'
+                    WHERE ID = ${id}
                 `;
         try {
             db.run(query);
@@ -120,7 +124,7 @@ module.exports = {
         var resumo = req.body;
         await postResumo(resumo).then(async (response) => {
             if (response.ok) {
-                
+
                 console.log("Resumo Adicionado com Sucesso!")
 
                 res({
@@ -170,8 +174,8 @@ module.exports = {
 
     async delete(req, res) {
 
-        var resumo = req.body;
-        await deleteResumo(resumo).then(async (response) => {
+        var id = req.params.id;
+        await deleteResumo(id).then(async (response) => {
             if (response.ok) {
 
                 console.log("Resumo Deletado com Sucesso!")

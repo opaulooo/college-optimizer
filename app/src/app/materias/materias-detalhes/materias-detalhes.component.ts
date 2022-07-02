@@ -154,8 +154,6 @@ export class MateriasDetalhesComponent implements OnInit {
   }
 
   voltar() {
-    console.log('voltar')
-    console.log(this.navCtrl.pop())
     this.navCtrl.pop();
   }
 
