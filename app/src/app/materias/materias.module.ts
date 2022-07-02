@@ -8,6 +8,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { MateriasPagePageRoutingModule } from './materias-routing.module';
 import { CardComponent } from './components/card/card.component';
 import { MateriasDetalhesComponent } from './materias-detalhes/materias-detalhes.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -16,8 +17,11 @@ import { MateriasDetalhesComponent } from './materias-detalhes/materias-detalhes
     FormsModule,
     ExploreContainerComponentModule,
     MateriasPagePageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
-  declarations: [MateriasPage, CardComponent, MateriasDetalhesComponent]
+  declarations: [MateriasPage, CardComponent, MateriasDetalhesComponent],
+  exports:[
+  ]
 })
 export class MateriasPageModule {}
