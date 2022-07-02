@@ -11,7 +11,7 @@ import { ResponseGet } from '../shared/interfaces/response-gets';
 })
 export class MateriasPage {
 
-  materias: Array<IMateria>;
+  materias: Array<IMateria> = [];
 
   constructor(private navCtrl: NavController, private service: DataService) { }
 
@@ -56,6 +56,7 @@ export class MateriasPage {
   }
 
   irAdicionar() {
+    console.log('hello')
     this.navCtrl.navigateForward('/abas/materias/novo').then(() => {
       this.ionViewDidLoad();
     });

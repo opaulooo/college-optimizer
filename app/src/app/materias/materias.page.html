@@ -9,6 +9,11 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  <div class="sem-dados">
+    <span *ngIf="materias.length == 0">
+      Não foram encontrados dados!
+    </span>
+  </div>
   <ion-list lines="none">
     <ion-item *ngFor="let materia of materias">
       <app-materia-card [materia]="materia" (click)="irDetalhes(materia)"></app-materia-card>
