@@ -15,6 +15,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
         (
           ID INTEGER PRIMARY KEY AUTOINCREMENT,
           titulo text,
+          materia text,
           breveDescricao text,
           resumo blob,
           dataCriacao date,
@@ -27,9 +28,9 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
       CREATE TABLE TAREFAS
       (
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
-        nomeTarefa text,
-        descricaoTarefa text,
-        materiaTarefa text,
+        nome text,
+        descricao text,
+        materia text,
         dataInicio  date,
         dataFim  date,
         concluido boolean,
@@ -41,6 +42,19 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
       )
     `,
 
+      `
+        CREATE TABLE MATERIAS
+        (
+          ID INTEGER PRIMARY KEY AUTOINCREMENT,
+          materia text,
+          periodo real,
+          descricao text,
+          dataCriacao date,
+          dataUltimaAtualizacao date,
+          dataDeletado date,
+          deletado boolean
+        )
+      `,
 
     ];
 

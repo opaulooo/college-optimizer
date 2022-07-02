@@ -1,31 +1,32 @@
 const utils = require('../utils/funcoes')
 const db = require('../data/database')
 
-async function getResumos() {
+async function getMaterias() {
     return new Promise(async (res, rej) => {
-        var resumos;
+        var materias;
 
-        let query = `SELECT * FROM RESUMOS WHERE Deletado = false;`;
+        let query = `SELECT * FROM MATERIAS WHERE Deletado = false;`;
 
         await utils.getData(query).then((response) => {
-            resumos = response;
+            materias = response;
         }).catch((err) => {
             console.log(err);
         })
 
-        res(resumos)
+        res(materias)
     })
 }
 
-async function postResumo(resumo) {
+async function postMateria(materia) {
     return new Promise(async (res, rej) => {
 
         let data = (new Date().getTime());
-        let addResumo = {
-            titulo: resumo.titulo,
-            materia: resumo.materia,
-            breveDescricao: resumo.breveDescricao,
-            resumo: resumo.resumo,
+
+        let addMateria = {
+            materia: materia.materia,
+            titulo: materia.titulo,
+            periodo: materia.periodo,
+            descricao: materia.descricao,
             dataCriacao: data,
             dataUltimaAtualizacao: data,
             dataDeletado: null,
@@ -33,12 +34,10 @@ async function postResumo(resumo) {
         }
 
         query = `
-                    INSERT INTO RESUMOS(${Object.keys(addResumo).join(",")})
-                    values(${'?'.repeat(Object.keys(addResumo).length).split('').join(',')})
+                    INSERT INTO MATERIAS(${Object.keys(addMateria).join(",")})
+                    values(${'?'.repeat(Object.keys(addMateria).length).split('').join(',')})
                 `;
-
-        params = Object.values(addResumo);
-
+        params = Object.values(addMateria);
         try {
             db.run(query, params);
             res({
@@ -53,21 +52,19 @@ async function postResumo(resumo) {
     });
 }
 
-async function putResumo(resumo) {
+async function putMateria(materia) {
     return new Promise(async (res, rej) => {
 
         let data = (new Date().getTime());
-        
         query = `
-                    UPDATE RESUMOS SET
-                    titulo = '${resumo.titulo}',
-                    materia = '${resumo.titulo}',
-                    breveDescricao = '${resumo.breveDescricao}',
-                    resumo = '${resumo.resumo}',
+                    UPDATE MATERIAS SET
+                    materia = '${materia.materia}',
+                    titulo = '${materia.titulo}',
+                    periodo = '${materia.periodo}',
+                    descricao = '${materia.descricao}',
                     dataUltimaAtualizacao = ${data}
-                    WHERE ID = ${resumo.ID}
+                    WHERE ID = ${materia.ID}
                 `;
-                
 
         try {
             db.run(query);
@@ -83,16 +80,17 @@ async function putResumo(resumo) {
     });
 }
 
-async function deleteResumo(id) {
+async function deleteMateria(id) {
     return new Promise(async (res, rej) => {
 
         let data = (new Date().getTime());
         query = `
-                    UPDATE RESUMOS SET
+                    UPDATE MATERIAS SET
                     dataDeletado = ${data},
                     deletado = true
                     WHERE ID = ${id}
                 `;
+
         try {
             db.run(query);
             res({
@@ -110,10 +108,10 @@ async function deleteResumo(id) {
 
 module.exports = {
     async get(req, res) {
-        var resumos;
-        await getResumos().then(async (response) => {
-            resumos = response;
-            res.send(resumos)
+        var materias;
+        await getMaterias().then(async (response) => {
+            materias = response;
+            res.send(materias)
         }).catch((err) => {
             // console.log(err)
             res.send(err)
@@ -121,15 +119,15 @@ module.exports = {
     },
 
     async post(req, res) {
-        var resumo = req.body;
-        await postResumo(resumo).then(async (response) => {
+        var materia = req.body;
+        await postMateria(materia).then(async (response) => {
             if (response.ok) {
 
-                console.log("Resumo Adicionado com Sucesso!")
+                console.log("Materia Adicionada com Sucesso!")
 
                 res({
                     ok: true,
-                    response: "Resumo Adicionado com Sucesso!"
+                    response: "Materia Adicionada com Sucesso!"
                 });
             } else {
                 res.json({
@@ -147,14 +145,14 @@ module.exports = {
     },
 
     async update(req, res) {
-        var resumo = req.body;
-        await putResumo(resumo).then(async (response) => {
+        var materia = req.body;
+        await putMateria(materia).then(async (response) => {
             if (response.ok) {
 
-                console.log("Resumo Atualizado com Sucesso!")
+                console.log("Materia Atualizada com Sucesso!")
                 res.json({
                     ok: true,
-                    response: "Resumo Atualizado com Sucesso!"
+                    response: "Materia Atualizada com Sucesso!"
                 });
             } else {
                 res.json({
@@ -175,14 +173,14 @@ module.exports = {
     async delete(req, res) {
 
         var id = req.params.id;
-        await deleteResumo(id).then(async (response) => {
+        await deleteMateria(id).then(async (response) => {
             if (response.ok) {
 
-                console.log("Resumo Deletado com Sucesso!")
+                console.log("Materia Deletada com Sucesso!")
 
                 res.json({
                     ok: true,
-                    response: "Resumo Deletado com Sucesso!"
+                    response: "Materia Deletada com Sucesso!"
                 });
             } else {
                 res.json({

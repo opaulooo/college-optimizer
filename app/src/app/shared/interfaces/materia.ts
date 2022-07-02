@@ -1,6 +1,7 @@
 export interface IMateria {
-  nome: string;
-  periodo: string;
+  ID: number;
+  materia: string;
+  periodo: number;
   descricao: string;
   dataCriacao: Date;
   dataUltimaAtualizacao: Date;

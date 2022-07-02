@@ -2,6 +2,8 @@ ion-item {
   margin: 3px;
   border: 1px solid #dfdfdf;
   border-radius: 10px;
+  max-width: 95%;
+  min-width: 40vh;
 }
 
 .nome {
@@ -21,4 +23,5 @@ ion-item {
 .date {
   font-size: 12px;
   float: right;
+  opacity: 60%;
 }

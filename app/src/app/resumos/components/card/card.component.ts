@@ -11,6 +11,7 @@ export class CardComponent implements OnInit {
   @Input() resumo: IResumo;
 
   textoExibicao: string;
+  materiaExibicao: string;
   tituloExibicao: string;
 
   constructor() { }
@@ -30,6 +31,12 @@ export class CardComponent implements OnInit {
       this.tituloExibicao = this.resumo.titulo;
     } else {
       this.tituloExibicao = this.resumo.titulo.substring(0, 31) + '...';
+    }
+
+    if(this.resumo.materia.length <= 45){
+      this.materiaExibicao = this.resumo.materia;
+    } else {
+      this.materiaExibicao = this.resumo.materia.substring(0, 31) + '...';
     }
   }
 }
