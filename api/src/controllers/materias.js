@@ -39,7 +39,6 @@ async function postMateria(materia) {
                 `;
 
         params = Object.values(addMateria);
-
         try {
             db.run(query, params);
             res({
@@ -64,7 +63,7 @@ async function putMateria(materia) {
                     periodo = '${materia.periodo}',
                     descricao = '${materia.descricao}',
                     dataUltimaAtualizacao = ${data}
-                    WHERE ID = '${materia.id}'
+                    WHERE ID = ${materia.ID}
                 `;
 
         try {
@@ -81,7 +80,7 @@ async function putMateria(materia) {
     });
 }
 
-async function deleteMateria(materia) {
+async function deleteMateria(id) {
     return new Promise(async (res, rej) => {
 
         let data = (new Date().getTime());
@@ -89,7 +88,7 @@ async function deleteMateria(materia) {
                     UPDATE MATERIAS SET
                     dataDeletado = ${data},
                     deletado = true
-                    WHERE ID = '${materia.id}'
+                    WHERE ID = ${id}
                 `;
 
         try {
@@ -123,7 +122,7 @@ module.exports = {
         var materia = req.body;
         await postMateria(materia).then(async (response) => {
             if (response.ok) {
-                
+
                 console.log("Materia Adicionada com Sucesso!")
 
                 res({
@@ -173,8 +172,8 @@ module.exports = {
 
     async delete(req, res) {
 
-        var materia = req.body;
-        await deleteMateria(materia).then(async (response) => {
+        var id = req.params.id;
+        await deleteMateria(id).then(async (response) => {
             if (response.ok) {
 
                 console.log("Materia Deletada com Sucesso!")

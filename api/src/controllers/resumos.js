@@ -89,7 +89,6 @@ async function deleteResumo(resumo) {
                     deletado = true
                     WHERE ID = '${resumo.id}'
                 `;
-
         try {
             db.run(query);
             res({
