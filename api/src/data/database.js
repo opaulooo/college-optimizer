@@ -41,6 +41,19 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
       )
     `,
 
+      `
+        CREATE TABLE MATERIAS
+        (
+          ID INTEGER PRIMARY KEY AUTOINCREMENT,
+          materia text,
+          periodo text,
+          descricao text,
+          dataCriacao date,
+          dataUltimaAtualizacao date,
+          dataDeletado date,
+          deletado boolean
+        )
+      `,
 
     ];
 
