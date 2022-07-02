@@ -23,6 +23,24 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
           deletado boolean
         )
       `,
+      ` 
+      CREATE TABLE TAREFAS
+      (
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        nomeTarefa text,
+        descricaoTarefa text,
+        materiaTarefa text,
+        dataInicio  date,
+        dataFim  date,
+        concluido boolean,
+        notificar boolean,
+        dataCriacao date,
+        dataUltimaAtualizacao date,
+        dataDeletado date,
+        deletado boolean
+      )
+    `,
+
 
     ];
 
