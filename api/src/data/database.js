@@ -46,6 +46,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
         CREATE TABLE MATERIAS
         (
           ID INTEGER PRIMARY KEY AUTOINCREMENT,
+          titulo text,
           materia text,
           periodo real,
           descricao text,
