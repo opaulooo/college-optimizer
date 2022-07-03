@@ -20,7 +20,7 @@ export class MateriasPage {
   }
 
   async ionViewDidLoad() {
-    this.service.getMaterias('materias').subscribe((response) => {
+    this.service.getMaterias().subscribe((response) => {
       this.materias = response;
     });
   }
