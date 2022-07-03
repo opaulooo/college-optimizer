@@ -85,7 +85,7 @@ export class ResumosDetalhesComponent implements OnInit {
       addResumo.materia != null && addResumo.materia != '' &&
       addResumo.titulo != null && addResumo.titulo != ''
     ) {
-      this.service.postResumo('resumos', addResumo).subscribe((response) => {
+      this.service.postResumo(addResumo).subscribe((response) => {
         console.log(response)
       });
       this.voltar();
@@ -103,7 +103,7 @@ export class ResumosDetalhesComponent implements OnInit {
       updateResumo.materia != null && updateResumo.materia != '' &&
       updateResumo.titulo != null && updateResumo.titulo != ''
     ) {
-      this.service.putResumo('resumos', updateResumo).subscribe((response) => {
+      this.service.putResumo(updateResumo).subscribe((response) => {
         console.log(response)
       });
       this.voltar();
@@ -114,7 +114,7 @@ export class ResumosDetalhesComponent implements OnInit {
   }
 
   async deletaMateria(id: number) {
-    console.log(id)
+    // console.log(id)
     this.service.delete('resumos', id).subscribe((response) => {
       console.log(response)
     });
@@ -123,7 +123,7 @@ export class ResumosDetalhesComponent implements OnInit {
   }
 
   async confirmarAlert(data: IResumo, metodo: String, edicao: boolean) {
-    console.log(data)
+    // console.log(data)
     const alert = await this.alertController.create({
       header: `Atenção!`,
       message: `Confirmar ${metodo}?`,

@@ -12,18 +12,18 @@ import { IResumo } from '../shared/interfaces/resumo';
 export class ResumosPage {
   resumos: Array<IResumo> = [];
 
-  constructor(private navCtrl: NavController, private service: DataService) {}
+  constructor(private navCtrl: NavController, private service: DataService) { }
 
   ngOnInit() {
     this.ionViewDidLoad();
   }
 
   async ionViewDidLoad() {
-    this.service.getResumos('resumos').subscribe((response) => {
+    this.service.getResumos().subscribe((response) => {
       this.resumos = response;
     });
   }
-  
+
   doRefresh(event) {
     setTimeout(() => {
       this.ionViewDidLoad();
@@ -32,13 +32,13 @@ export class ResumosPage {
   }
 
 
-  irDetalhes(resumo: IResumo){
+  irDetalhes(resumo: IResumo) {
     this.navCtrl.navigateForward('/abas/resumos/editar', {
       state: resumo
     });
   }
 
-  irAdicionar(){
+  irAdicionar() {
     this.navCtrl.navigateForward('/abas/resumos/novo');
   }
 }
