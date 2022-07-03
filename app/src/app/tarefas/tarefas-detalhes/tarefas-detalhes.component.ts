@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
 import { DataService } from 'providers/service/data-service';
-import { Periodos } from 'src/app/shared/data/periodo';
 import { ITarefa } from 'src/app/shared/interfaces/tarefa';
 
 @Component({
@@ -13,7 +12,7 @@ import { ITarefa } from 'src/app/shared/interfaces/tarefa';
 })
 export class TarefasDetalhesComponent implements OnInit {
   editar = false;
-  tarefa: ITarefa;
+  tarefa: ITarefa = null;
   materias: Array<any> = [];
 
   tarefaForm: FormGroup = new FormGroup({

@@ -13,6 +13,7 @@ import { IResumo } from 'src/app/shared/interfaces/resumo';
 export class ResumosDetalhesComponent implements OnInit {
   editar = false;
   resumo: IResumo;
+  materias: Array<any> = [];
 
   resumoForm: FormGroup = new FormGroup({
     ID: new FormControl(null, Validators.required),
@@ -32,7 +33,9 @@ export class ResumosDetalhesComponent implements OnInit {
     private route: ActivatedRoute,
     private alertController: AlertController,
     private service: DataService) {
-    this.resumo = this.router.getCurrentNavigation().extras.state as IResumo;
+    console.log(this.router.getCurrentNavigation().extras.state)
+    this.materias = this.router.getCurrentNavigation().extras.state.materiasList;
+    this.resumo = this.router.getCurrentNavigation().extras.state.resumo as IResumo;
     this.route.data.subscribe(res => {
       this.editar = res.editar;
     });
@@ -65,6 +68,8 @@ export class ResumosDetalhesComponent implements OnInit {
   }
 
   createEditarForm() {
+
+    console.log(this.resumo)
     this.resumoForm = new FormGroup({
       ID: new FormControl(this.resumo.ID, Validators.required),
       titulo: new FormControl(this.resumo.titulo, Validators.required),
@@ -78,11 +83,10 @@ export class ResumosDetalhesComponent implements OnInit {
     });
   }
 
-  async novaMateria(addResumo: IResumo) {
-
-    if (addResumo.breveDescricao != null && addResumo.breveDescricao != '' &&
+  async novoResumo(addResumo: IResumo) {
+    if (
       addResumo.resumo != null && addResumo.resumo != '' &&
-      addResumo.materia != null && addResumo.materia != '' &&
+      addResumo.materia != null &&
       addResumo.titulo != null && addResumo.titulo != ''
     ) {
       this.service.postResumo(addResumo).subscribe((response) => {
@@ -100,7 +104,7 @@ export class ResumosDetalhesComponent implements OnInit {
 
     if (updateResumo.breveDescricao != null && updateResumo.breveDescricao != '' &&
       updateResumo.resumo != null && updateResumo.resumo != '' &&
-      updateResumo.materia != null && updateResumo.materia != '' &&
+      updateResumo.materia != null &&
       updateResumo.titulo != null && updateResumo.titulo != ''
     ) {
       this.service.putResumo(updateResumo).subscribe((response) => {

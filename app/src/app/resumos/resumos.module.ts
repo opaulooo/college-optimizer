@@ -7,8 +7,8 @@ import { ResumosPage } from './resumos.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { ResumosPageRoutingModule } from './resumos-routing.module';
-import { CardComponent } from './components/card/card.component';
 import { ResumosDetalhesComponent } from './resumos-detalhes/resumos-detalhes.component';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
   imports: [

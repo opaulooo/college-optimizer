@@ -5,10 +5,15 @@
       <ion-col>
         <ion-item>
           <ion-label position="stacked"><b>Matéria</b></ion-label>
-          <ion-select style="height: 50px;" formControlName="materia">
+          <ion-select *ngIf="materias.length > 0" style="height: 50px;" formControlName="materia">
             <ion-select-option *ngFor="let option of materias" [value]="option.key">{{ option.value }}
             </ion-select-option>
           </ion-select>
+          <div class="sem-dados" *ngIf="materias.length == 0">
+            <span>
+              Não há matérias adicionadas!
+            </span>
+          </div>
         </ion-item>
       </ion-col>
       <ion-col>

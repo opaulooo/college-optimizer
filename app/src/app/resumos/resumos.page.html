@@ -17,7 +17,7 @@
   <ion-grid>
     <ion-row>
       <ion-col class="card" size="6" *ngFor="let resumo of resumos" [style.padding]="3">
-        <app-resumo-card (click)="irDetalhes(resumo)" [resumo]="resumo"></app-resumo-card>
+        <app-resumo-card (click)="irDetalhes(resumo)" [resumo]="resumo" [materia]="materias"></app-resumo-card>
       </ion-col>
     </ion-row>
   </ion-grid>

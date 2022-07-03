@@ -1,7 +1,7 @@
 export interface IResumo {
     ID: number;
     titulo: string;
-    materia: string;
+    materia: number;
     breveDescricao: string;
     resumo: string;
     dataCriacao: Date;
