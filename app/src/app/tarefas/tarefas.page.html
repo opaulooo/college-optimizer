@@ -4,28 +4,26 @@
       <ion-title size="large">Tarefas</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content padding>
-    <ion-item>
-      <ion-input type="text" placeholder="Enter task" [(ngModel)]="taskName"></ion-input>
 
-      <div class="item-note" item-end>
-        <ion-button color="primary" (click)="addTask()">
-          <ion-icon name="add"></ion-icon>
-        </ion-button>
-      </div>
-    </ion-item>
-    <div padding>
-      <ion-list>
-        <ion-item *ngFor="let todo of taskList; let i=index">
-          aaaa
-          <div class="item-note" slot="end">
-            <ion-button color="danger" clear (click)="deleteTask(i)">
-              <ion-icon name="trash"></ion-icon>
-            </ion-button>
-          </div>
-        </ion-item>
-      </ion-list>
-    </div>
-  </ion-content>
-  <app-explore-container name="Tarefas"></app-explore-container>
+  
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="irAdicionar()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="sem-dados">
+    <span *ngIf="tarefas.length == 0">
+      Não foram encontrados dados!
+    </span>
+  </div>
+
+  <ion-item *ngFor="let tarefa of tarefas">
+    <app-tarefas-list [tarefa]="tarefa" [materias]="materias" (click)="irDetalhes(tarefa)"></app-tarefas-list>
+  </ion-item>
+
 </ion-content>

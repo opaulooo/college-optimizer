@@ -1,0 +1,66 @@
+<ion-content padding>
+
+  <form [formGroup]="tarefaForm">
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked"><b>Matéria</b></ion-label>
+          <ion-select style="height: 50px;" formControlName="materia">
+            <ion-select-option *ngFor="let option of materias" [value]="option.key">{{ option.value }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked"><b>Notificar?</b></ion-label>
+          <div class="notificar">
+            <ion-toggle color="secondary" [checked]="tarefaForm.value.notificar == null" formControlName="notificar">
+            </ion-toggle>
+          </div>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-item>
+      <ion-label position="stacked"><b>Título</b></ion-label>
+      <ion-input formControlName="titulo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><b>Descrição</b></ion-label>
+      <ion-textarea rows="10" formControlName="descricao"></ion-textarea>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked"><b>Data Início</b></ion-label>
+            <ion-input class="ion-text-right" type="datetime-local" formControlName="dataInicio"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked"><b>Data Fim</b></ion-label>
+            <ion-input class="ion-text-right" type="datetime-local" formControlName="dataFim"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </form>
+  <ion-footer>
+    <ion-row>
+      <ion-col class="center" size="4">
+        <ion-button (click)="voltar()">Voltar</ion-button>
+      </ion-col>
+      <ion-col class="center" size="4">
+        <ion-button *ngIf="editar" color="success" (click)="confirmarAlert(tarefaForm.value, 'atualização', false)">
+          Atualizar</ion-button>
+      </ion-col>
+      <ion-col class="center" size="4">
+        <ion-button *ngIf="editar" color="danger" (click)="confirmarAlert(tarefaForm.value, 'exclusão', true)">Deletar
+        </ion-button>
+        <ion-button *ngIf="!editar" color="success" (click)="novaTarefa(tarefaForm.value)">Adicionar</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-footer>
+</ion-content>

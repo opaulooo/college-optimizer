@@ -1,0 +1,55 @@
+ion-item {
+  margin: 3px;
+  border: 1px solid #dfdfdf;
+  border-radius: 10px;
+}
+
+.materia {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.titulo {
+  margin: 5px 0 0 0;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.descricao {
+  font-size: 14px;
+  width: 80vw;
+  margin: 5px 5px 15px 5px;
+}
+
+.date {
+  font-size: 11px;
+  float: right;
+  margin-right: 2px;
+}
+
+.right {
+  justify-content: right;
+}
+
+
+.notificacao-on {
+  background-color: green;
+  width: 80vw;
+  text-align: right;
+  width: 10px;
+  border-radius: 2px;
+}
+
+.notificacao-off {
+  background-color: red;
+  border: 1px;
+  width: 80vw;
+  width: 10px;
+  border-radius: 2px;
+}

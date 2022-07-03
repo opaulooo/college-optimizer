@@ -1,0 +1,16 @@
+<ion-item>
+  <ion-col>
+    <!-- <div class="notificacao-on">&nbsp;</div>
+    <div class="notificacao-off">&nbsp;</div> -->
+    <div>
+      <span class="titulo"><b>{{ tarefa.titulo.toUpperCase() }}</b></span>
+      <span class="materia"><b>{{ materias[materia] ? materias[materia].value : "Matéria Deletada!" }}</b></span>
+    </div>
+    <div class="descricao">{{ tarefa.descricao }}</div>
+    <div class="right">
+      <span class="date">{{ tarefa.dataInicio | date: 'dd/MM/yyyy' }}</span>
+      <span class="date"> até </span>
+      <span class="date">{{ tarefa.dataFim | date: 'dd/MM/yyyy' }}</span>
+    </div>
+  </ion-col>
+</ion-item>

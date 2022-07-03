@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { DataService } from 'providers/service/data-service';
+import { ITarefa } from '../shared/interfaces/tarefa';
 
 @Component({
   selector: 'app-tarefas',
@@ -6,27 +9,49 @@ import { Component } from '@angular/core';
   styleUrls: ['tarefas.page.scss']
 })
 export class TarefasPage {
-  taskName: any = ''; // Entered Text
-  taskList = []; // Array to store tasks
 
-  constructor() { }
+  tarefas: Array<ITarefa> = [];
+  materias: Array<any> = [];
 
-  // addTask Function
-  // First we check if the text is entered or not in input box by verifying if length > 0
-  // If length is greater than 0, then only we add taskName to taskList array
-  // After adding we reset the taskName
-  addTask() {
-    if (this.taskName.length > 0) {
-      let task = this.taskName;
-      this.taskList.push(task);
-      this.taskName = '';
-    }
+  constructor(private navControl: NavController, private service: DataService) { }
+
+  async ngOnInit() {
+
+    await this.service.get('materias-keys').subscribe((response) => {
+      // console.log(response);
+      this.materias = response;
+    })
+
+    this.service.getTarefas().subscribe((response) => {
+      this.tarefas = response;
+    });
+    // console.log(this.tarefas)
   }
-  // deleteTask Function
-  // When user clicks the delete task button, this function is called with index i as parameter
-  // Since tasks are added to taskList, we delete the task at index i using splice() array method
-  // This deletes only that task at index i
-  deleteTask(index) {
-    this.taskList.splice(index, 1);
+
+
+
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.ngOnInit();
+      event.target.complete();
+    }, 2000);
   }
+
+  irAdicionar() {
+    this.navControl.navigateForward('/abas/tarefas/novo', {
+      state: { materiasList: this.materias },
+    }).then(() => {
+      this.ngOnInit();
+    });
+  }
+
+  irDetalhes(materia: ITarefa) {
+    this.navControl.navigateForward('/abas/tarefas/editar', {
+      state: { materia: materia, materiasList: this.materias },
+    }).then(() => {
+      this.ngOnInit();
+    });
+  }
+
 }

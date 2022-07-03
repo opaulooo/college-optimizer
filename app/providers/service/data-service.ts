@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IResumo } from 'src/app/shared/interfaces/resumo';
+import { ITarefa } from 'src/app/shared/interfaces/tarefa';
 
 const apiUrl = environment.api;
 
@@ -16,38 +17,62 @@ export class DataService {
   constructor(private http: HttpClient) {
   }
 
-  getMaterias(endpoint: String): Observable<Array<IMateria>> {
+  get(endpoint: String): Observable<Array<any>> {
+    return this.http.get<Array<any>>(
+      `${environment.api}/${endpoint}`
+    );
+  }
+
+  getMaterias(): Observable<Array<IMateria>> {
     return this.http.get<Array<IMateria>>(
-      `${environment.api}/${endpoint}`
+      `${environment.api}/materias`
     );
   }
 
-  postMateria(endpoint: String, materia: IMateria): Observable<IMateria> {
+  postMateria(materia: IMateria): Observable<IMateria> {
     return this.http.post<IMateria>(
-      `${environment.api}/${endpoint}`, materia);
+      `${environment.api}/materias`, materia);
   }
 
-  putMateria(endpoint: String, materia: IMateria): Observable<IMateria> {
+  putMateria(materia: IMateria): Observable<IMateria> {
     return this.http.put<IMateria>(
-      `${environment.api}/${endpoint}`, materia);
+      `${environment.api}/materias`, materia);
   }
 
 
 
-  getResumos(endpoint: String): Observable<Array<IResumo>> {
+  getResumos(): Observable<Array<IResumo>> {
     return this.http.get<Array<IResumo>>(
-      `${environment.api}/${endpoint}`
+      `${environment.api}/resumos`
     );
   }
 
-  postResumo(endpoint: String, resumo: IResumo): Observable<IResumo> {
+  postResumo(resumo: IResumo): Observable<IResumo> {
     return this.http.post<IResumo>(
-      `${environment.api}/${endpoint}`, resumo);
+      `${environment.api}/resumos`, resumo);
   }
 
-  putResumo(endpoint: String, resumo: IResumo): Observable<IResumo> {
+  putResumo(resumo: IResumo): Observable<IResumo> {
     return this.http.put<IResumo>(
-      `${environment.api}/${endpoint}`, resumo);
+      `${environment.api}/resumos`, resumo);
+  }
+
+
+
+  getTarefas(): Observable<Array<ITarefa>> {
+    return this.http.get<Array<ITarefa>>(
+      `${environment.api}/tarefas`
+    );
+  }
+
+  postTarefa(resumo: ITarefa): Observable<ITarefa> {
+    return this.http.post<ITarefa>(
+      `${environment.api}/tarefas`, resumo);
+  }
+
+  putTarefa(resumo: ITarefa): Observable<ITarefa> {
+    return this.http.put<ITarefa>(
+      `${environment.api}/tarefas`, resumo);
   }
 
 
