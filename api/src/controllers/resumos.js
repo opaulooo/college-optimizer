@@ -61,7 +61,7 @@ async function putResumo(resumo) {
         query = `
                     UPDATE RESUMOS SET
                     titulo = '${resumo.titulo}',
-                    materia = '${resumo.titulo}',
+                    materia = '${resumo.materia}',
                     breveDescricao = '${resumo.breveDescricao}',
                     resumo = '${resumo.resumo}',
                     dataUltimaAtualizacao = ${data}
