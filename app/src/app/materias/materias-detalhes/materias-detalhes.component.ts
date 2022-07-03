@@ -39,17 +39,17 @@ export class MateriasDetalhesComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.materia, this.editar);
+    // console.log(this.materia, this.editar);
     if (!this.materia && this.editar) {
       this.navCtrl.navigateRoot('/abas/materias');
     }
 
     if (this.editar) {
       this.createEditarForm();
-      console.log(this.materiaForm.value);
+      // console.log(this.materiaForm.value);
     } else {
       this.createNovoForm();
-      console.log(this.materiaForm.value);
+      // console.log(this.materiaForm.value);
     }
   }
 
@@ -85,7 +85,7 @@ export class MateriasDetalhesComponent implements OnInit {
       addMateria.periodo != null &&
       addMateria.descricao != null && addMateria.descricao != ''
     ) {
-      this.service.postMateria('materias', addMateria).subscribe((response) => {
+      this.service.postMateria(addMateria).subscribe((response) => {
         console.log(response)
       });
       this.voltar();
@@ -102,7 +102,7 @@ export class MateriasDetalhesComponent implements OnInit {
       updateMateria.periodo != null &&
       updateMateria.descricao != null && updateMateria.descricao != ''
     ) {
-      this.service.putMateria('materias', updateMateria).subscribe((response) => {
+      this.service.putMateria(updateMateria).subscribe((response) => {
         console.log(response)
       });
       this.voltar();
@@ -113,7 +113,7 @@ export class MateriasDetalhesComponent implements OnInit {
   }
 
   async deletaMateria(id: number) {
-    console.log(id)
+    // console.log(id)
     this.service.delete('materias', id).subscribe((response) => {
       console.log(response)
     });
@@ -122,7 +122,7 @@ export class MateriasDetalhesComponent implements OnInit {
   }
 
   async confirmarAlert(data: IMateria, metodo: String, edicao: boolean) {
-    console.log(data)
+    // console.log(data)
     const alert = await this.alertController.create({
       header: `Atenção!`,
       message: `Confirmar ${metodo}?`,
