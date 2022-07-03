@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { Calendar } from '@awesome-cordova-plugins/calendar/ngx';
 import { CalendarMode, Step } from 'ionic2-calendar/calendar';
+import { DataService } from 'providers/service/data-service';
+import { ITarefa } from '../shared/interfaces/tarefa';
 @Component({
   selector: 'app-calendario',
   templateUrl: 'calendario.page.html',
@@ -31,6 +33,8 @@ export class CalendarioPage {
   selectedDate: Date;
   isToday: boolean;
 
+  tarefas: Array<ITarefa> = [];
+  materias: Array<any> = [];
   calendar = {
     mode: 'month' as CalendarMode,
     step: 30 as Step,
@@ -62,13 +66,21 @@ export class CalendarioPage {
       }
     }
   };
-  constructor() { }
 
-  ionViewDidLoad() {
-  }
+  constructor(private service: DataService) { }
 
-  loadEvents() {
-    this.eventSource = this.createRandomEvents();
+  ngOnInit() {
+
+    this.service.get('materias-keys').subscribe((response) => {
+      this.materias = response;
+    })
+
+    this.service.getTarefas().subscribe((response) => {
+      this.tarefas = response;
+    });
+
+    if (this.tarefas.length > 0)
+      this.eventSource = this.addEvents(this.tarefas);
   }
 
   onViewTitleChanged(title) {
@@ -76,7 +88,6 @@ export class CalendarioPage {
   }
 
   onEventSelected(event) {
-    console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
   }
 
   changeMode(mode) {
@@ -98,32 +109,28 @@ export class CalendarioPage {
     this.isToday = today.getTime() === event.getTime();
   }
 
-  createRandomEvents() {
+  addEvents(eventos: Array<ITarefa>) {
     var tarefas = [];
-    for (var i = 0; i < 50; i += 1) {
-      var date = new Date();
-      var eventType = Math.floor(Math.random() * 2);
-      var startDay = Math.floor(Math.random() * 90) - 45;
-      var endDay = Math.floor(Math.random() * 2) + startDay;
-      var startTime;
-      var endTime;
-      var startMinute = Math.floor(Math.random() * 24 * 60);
-      var endMinute = Math.floor(Math.random() * 180) + startMinute;
-      startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
-      endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
+    eventos.forEach((element: ITarefa) => {
+      var dateStart = new Date(element.dataInicio);
+      var dateEnd = new Date(element.dataFim);
+
+      var startTime = new Date(dateStart.getFullYear(), dateStart.getMonth(), dateStart.getDate(), 0, dateStart.getMinutes());
+      var endTime = new Date(dateEnd.getFullYear(), dateEnd.getMonth(), dateEnd.getDate(), 0, dateEnd.getMinutes());
+
       tarefas.push({
-        title: 'Tarefa - ' + i + 1,
+        title: `${startTime.toLocaleDateString()} - ${endTime.toLocaleDateString()}:  ${element.materia} - ${element.titulo}`,
         startTime: startTime,
         endTime: endTime,
         allDay: false
       });
-    }
+    });
+    console.log(tarefas)
     this.events = tarefas;
     return tarefas;
   }
 
   onRangeChanged(ev) {
-    console.log('range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime);
   }
 
   markDisabled = (date: Date) => {
@@ -131,6 +138,14 @@ export class CalendarioPage {
     current.setHours(0, 0, 0);
     return date < current;
   };
+
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.ngOnInit();
+      event.target.complete();
+    }, 2000);
+  }
 
   formatarData(str) {
     var partes = str.split('/').map(Number);

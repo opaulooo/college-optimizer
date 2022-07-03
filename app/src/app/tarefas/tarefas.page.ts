@@ -15,9 +15,9 @@ export class TarefasPage {
 
   constructor(private navControl: NavController, private service: DataService) { }
 
-  async ngOnInit() {
+  ngOnInit() {
 
-    await this.service.get('materias-keys').subscribe((response) => {
+    this.service.get('materias-keys').subscribe((response) => {
       // console.log(response);
       this.materias = response;
     })
@@ -25,7 +25,6 @@ export class TarefasPage {
     this.service.getTarefas().subscribe((response) => {
       this.tarefas = response;
     });
-    // console.log(this.tarefas)
   }
 
 

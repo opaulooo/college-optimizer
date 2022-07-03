@@ -5,7 +5,6 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- <ion-datetime presentation="date" size="100vh"></ion-datetime> -->
 
   <ion-toolbar>
     <ion-row>
@@ -15,14 +14,17 @@
         <ion-button color="success" (click)="changeMode('month')">Mês</ion-button>
         <ion-button color="primary" (click)="changeMode('week')">Semana</ion-button>
         <ion-button color="secondary" (click)="changeMode('day')">Dia</ion-button>
-        <ion-button color="tertiary" (click)="loadEvents()">Tarefas</ion-button>
       </ion-buttons>
     </ion-row>
   </ion-toolbar>
   <ion-content>
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
     <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
-      (onCurrentDateChanged)="onCurrentDateChanged($event)" (onEventSelected)="onEventSelected($event)"
-      (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)" [step]="calendar.step">
+      (onCurrentDateChanged)="onCurrentDateChanged($event)" (onTitleChanged)="onViewTitleChanged($event)"
+      (onTimeSelected)="onTimeSelected($event)" [step]="calendar.step">
     </calendar>
   </ion-content>
 
