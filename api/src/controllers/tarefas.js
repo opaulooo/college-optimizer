@@ -22,13 +22,13 @@ async function postTarefa(tarefa) {
 
         let data = (new Date().getTime());
         let addTarefa = {
-            nomeTarefa: tarefa.nomeTarefa,
-            descricaoTarefa: tarefa.descricaoTarefa,
-            materiaTarefa: tarefa.materiaTarefa,
-            dataInicio:tarefa.dataInicio,
-            dataFim:tarefa.dataFim,
-            concluido:tarefa.concluido,
-            notificar:tarefa.notificar,
+            titulo: tarefa.titulo,
+            descricao: tarefa.descricao,
+            materia: tarefa.materia,
+            dataInicio: tarefa.dataInicio,
+            dataFim: tarefa.dataFim,
+            concluido: tarefa.concluido,
+            notificar: tarefa.notificar,
             dataCriacao: data,
             dataUltimaAtualizacao: data,
             dataDeletado: null,
@@ -58,21 +58,21 @@ async function postTarefa(tarefa) {
 
 async function putTarefa(tarefa) {
     return new Promise(async (res, rej) => {
-
         let data = (new Date().getTime());
+
         query = `
                     UPDATE TAREFAS SET
-                    nomeTarefa = '${tarefa.nomeTarefa}',
-                    descricaoTarefa = '${tarefa.descricaoTarefa}',
-                    materiaTarefa = '${tarefa.materiaTarefa}',
-                    dataInicio= ${tarefa.dataInicio},
-                    dataFim= ${tarefa.dataFim},
+                    titulo = '${tarefa.titulo}',
+                    descricao = '${tarefa.descricao}',
+                    materia = '${tarefa.materia}',
+                    dataInicio= '${tarefa.dataInicio}',
+                    dataFim= '${tarefa.dataFim}',
                     concluido= ${tarefa.concluido},
                     notificar= ${tarefa.notificar},
                     dataUltimaAtualizacao = ${data}
-                    WHERE ID = '${tarefa.id}'
+                    WHERE ID = '${tarefa.ID}'
                 `;
-        
+
         try {
             db.run(query);
             res({
@@ -87,7 +87,7 @@ async function putTarefa(tarefa) {
     });
 }
 
-async function deleteTarefa(tarefa) {
+async function deleteTarefa(id) {
     return new Promise(async (res, rej) => {
 
         let data = (new Date().getTime());
@@ -95,7 +95,7 @@ async function deleteTarefa(tarefa) {
                     UPDATE TAREFAS SET
                     dataDeletado = ${data},
                     deletado = true
-                    WHERE ID = '${tarefa.id}'
+                    WHERE ID = '${id}'
                 `;
 
         try {
@@ -129,7 +129,7 @@ module.exports = {
         var tarefa = req.body;
         await postTarefa(tarefa).then(async (response) => {
             if (response.ok) {
-                
+
                 console.log("Tarefa Adicionada com Sucesso!")
 
                 res({
@@ -179,8 +179,8 @@ module.exports = {
 
     async delete(req, res) {
 
-        var tarefa = req.body;
-        await deleteTarefa(tarefa).then(async (response) => {
+        var id = req.params.id;
+        await deleteTarefa(id).then(async (response) => {
             if (response.ok) {
 
                 console.log("Tarefa Deletada com Sucesso!")

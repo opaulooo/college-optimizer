@@ -28,11 +28,11 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
       CREATE TABLE TAREFAS
       (
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome text,
+        titulo text,
         descricao text,
-        materia text,
-        dataInicio  date,
-        dataFim  date,
+        materia real,
+        dataInicio date,
+        dataFim date,
         concluido boolean,
         notificar boolean,
         dataCriacao date,
