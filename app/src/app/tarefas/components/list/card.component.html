@@ -8,9 +8,9 @@
     </div>
     <div class="descricao">{{ tarefa.descricao }}</div>
     <div class="right">
-      <span class="date">{{ tarefa.dataInicio | date: 'dd/MM/yyyy' }}</span>
-      <span class="date"> até </span>
       <span class="date">{{ tarefa.dataFim | date: 'dd/MM/yyyy' }}</span>
+      <span class="date"> até </span>
+      <span class="date">{{ tarefa.dataInicio | date: 'dd/MM/yyyy' }}</span>
     </div>
   </ion-col>
 </ion-item>

@@ -42,11 +42,15 @@ export class CardComponent implements OnInit {
     } else {
       this.tituloExibicao = this.resumo.titulo.substring(0, 31) + '...';
     }
-    console.log(this.materia, this.materia[materiaIndex].value)
-    if (this.materia[materiaIndex].value.length <= 45) {
-      this.materiaExibicao = this.materia[materiaIndex].value;
-    } else {
-      this.materiaExibicao = this.materia[materiaIndex].value.substring(0, 31) + '...';
+    if (materiaIndex != -1) {
+      console.log(this.materia, this.materia[materiaIndex].value)
+      if (this.materia[materiaIndex].value.length <= 45) {
+        this.materiaExibicao = this.materia[materiaIndex].value;
+      } else {
+        this.materiaExibicao = this.materia[materiaIndex].value.substring(0, 31) + '...';
+      }
+    }else{
+      this.materiaExibicao = 'Matéria não cadastrada!'.toLocaleUpperCase()
     }
   }
 }
