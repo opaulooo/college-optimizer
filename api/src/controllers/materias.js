@@ -44,7 +44,7 @@ async function postMateria(materia) {
             periodo: materia.periodo,
             descricao: materia.descricao,
             quantidadeaulas: materia.quantidadeaulas,
-            quantidadefaltas: materia.quantidadefaltas, 
+            quantidadefaltas: materia.quantidadefaltas,
             dataCriacao: data,
             dataUltimaAtualizacao: data,
             dataDeletado: null,
@@ -73,6 +73,7 @@ async function postMateria(materia) {
 async function putMateria(materia) {
     return new Promise(async (res, rej) => {
 
+        console.log(materia)
         let data = (new Date().getTime());
         query = `
                     UPDATE MATERIAS SET
@@ -80,10 +81,9 @@ async function putMateria(materia) {
                     titulo = '${materia.titulo}',
                     periodo = '${materia.periodo}',
                     descricao = '${materia.descricao}',
-                    quantidadeaulas=${materia.quantidadeaulas},
-                    quantidadefaltas=${materia.quantidadeaulas},
+                    quantidadeaulas = ${materia.quantidadeaulas},
                     dataUltimaAtualizacao = ${data}
-                    WHERE ID = '${materia.id}'
+                    WHERE ID = '${materia.ID}'
                 `;
 
         try {
@@ -107,8 +107,7 @@ async function putFrequencia(materia) {
         let data = (new Date().getTime());
         query = `
                     UPDATE MATERIAS SET
-                    quantidadeaulas=${materia.quantidadeaulas},
-                    quantidadefaltas=${materia.quantidadeaulas},
+                    quantidadefaltas=${materia.quantidadefaltas},
                     dataUltimaAtualizacao = ${data}
                     WHERE ID = ${materia.ID}
                 `;

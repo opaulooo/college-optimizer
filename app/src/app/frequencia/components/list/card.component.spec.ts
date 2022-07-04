@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
-import { CardComponent } from './card.component';
+import { CardComponent } from 'src/app/materias/components/card/card.component';
 
 describe('CardComponent', () => {
   let component: CardComponent;
@@ -9,7 +8,7 @@ describe('CardComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CardComponent ],
+      declarations: [CardComponent],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 

@@ -2,8 +2,12 @@
 
   <form [formGroup]="materiaForm">
     <ion-item>
-      <ion-label position="stacked"><b>Nome</b></ion-label>
+      <ion-label position="stacked"><b>Matéria</b></ion-label>
       <ion-input formControlName="materia"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked"><b>Carga Horária (Horas / Aula)</b></ion-label>
+      <ion-input type="number" formControlName="quantidadeaulas"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked"><b>Descrição</b></ion-label>
@@ -22,10 +26,12 @@
         <ion-button (click)="voltar()">Voltar</ion-button>
       </ion-col>
       <ion-col class="center" size="4">
-        <ion-button *ngIf="editar" color="success" (click)="confirmarAlert(materiaForm.value, 'atualização', false)">Atualizar</ion-button>
+        <ion-button *ngIf="editar" color="success" (click)="confirmarAlert(materiaForm.value, 'atualização', false)">
+          Atualizar</ion-button>
       </ion-col>
       <ion-col class="center" size="4">
-        <ion-button *ngIf="editar" color="danger" (click)="confirmarAlert(materiaForm.value, 'exclusão', true)">Deletar</ion-button>
+        <ion-button *ngIf="editar" color="danger" (click)="confirmarAlert(materiaForm.value, 'exclusão', true)">Deletar
+        </ion-button>
         <ion-button *ngIf="!editar" color="success" (click)="novaMateria(materiaForm.value)">Adicionar</ion-button>
       </ion-col>
     </ion-row>

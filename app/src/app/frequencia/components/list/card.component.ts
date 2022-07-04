@@ -9,8 +9,12 @@ import { IMateria } from 'src/app/shared/interfaces/materia';
 export class FrequenciaComponent implements OnInit {
   @Input() materia: IMateria;
 
+  media;
+
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.media = (100 - (this.materia.quantidadefaltas / this.materia.quantidadeaulas) * 100).toFixed(2);
+  }
 
 }

@@ -19,7 +19,7 @@ export class FrequenciaPage {
   }
 
   async ionViewDidLoad() {
-    this.service.getMateria('materias').subscribe((response) => {
+    this.service.getMateria().subscribe((response) => {
       this.materias = response;
     });
     console.log(this.materias)
@@ -33,8 +33,8 @@ export class FrequenciaPage {
   }
 
   irDetalhes(materia: IMateria) {
-    this.navCtrl.navigateForward('/abas/materias/editar', {
-      state: materia
+    this.navCtrl.navigateForward('/abas/frequencia/editar', {
+      state: { materias: materia }
     }).then(() => {
       this.ionViewDidLoad();
     });

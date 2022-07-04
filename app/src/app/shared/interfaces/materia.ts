@@ -3,8 +3,8 @@ export interface IMateria {
   materia: string;
   periodo: number;
   descricao: string;
-  quantidadeaulas: string;
-  quantidadefaltas: string;
+  quantidadeaulas: number;
+  quantidadefaltas: number;
   dataCriacao: Date;
   dataUltimaAtualizacao: Date;
   dataDeletado: Date;

@@ -17,7 +17,7 @@ export class DataService {
   constructor(private http: HttpClient) {
   }
 
-  getMateria(endpoint: String): Observable<Array<IMateria>> {
+  getMateria(): Observable<Array<IMateria>> {
     return this.http.get<Array<IMateria>>(
       `${environment.api}/materias`
     );
@@ -43,6 +43,11 @@ export class DataService {
   putMateria(materia: IMateria): Observable<IMateria> {
     return this.http.put<IMateria>(
       `${environment.api}/materias`, materia);
+  }
+
+  putFrequencia(materia: IMateria): Observable<IMateria> {
+    return this.http.put<IMateria>(
+      `${environment.api}/frequencias`, materia);
   }
 
 

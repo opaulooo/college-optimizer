@@ -2,54 +2,60 @@ ion-item {
   margin: 3px;
   border: 1px solid #dfdfdf;
   border-radius: 10px;
+  width: 85vw;
+}
+
+ion-grid {
+  margin-top: 15px;
 }
 
 .materia {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 16px;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.titulo {
-  margin: 5px 0 0 0;
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 16px;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.descricao {
   font-size: 14px;
-  width: 80vw;
-  margin: 5px 5px 15px 5px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 35ch;
 }
 
-.date {
-  font-size: 11px;
-  float: right;
-  margin-right: 2px;
+.frequencia-row {
+  text-align: right;
+  align-items: right;
+  justify-content: right;
 }
 
-.right {
+.frequencia {
+  font-size: 13px;
+  text-align: right;
+  align-items: right;
+  justify-content: right;
+}
+
+.media-div-pos {
+  border: 1px solid #dfdfdf;
+  border-radius: 10px;
+  background-color: green;
+}
+
+.media-div-neg {
+  border: 1px solid #dfdfdf;
+  border-radius: 10px;
+  background-color: red;
+}
+
+.media {
+  margin: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+  align-items: right;
   justify-content: right;
 }
 
 
-.notificacao-on {
-  background-color: green;
-  width: 80vw;
-  text-align: right;
-  width: 10px;
-  border-radius: 2px;
-}
-
-.notificacao-off {
-  background-color: red;
-  border: 1px;
-  width: 80vw;
-  width: 10px;
-  border-radius: 2px;
+.date {
+  font-size: 12px;
+  float: right;
+  opacity: 60%;
 }

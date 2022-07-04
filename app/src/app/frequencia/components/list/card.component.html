@@ -1,7 +1,22 @@
 <ion-item>
-  <ion-col>
-    <div class="materia"><b>{{ materia.materia.toUpperCase() }}</b></div>
-    <div class="descricao">{{ materia.descricao }}</div>
-    <span class="date">{{ materia.dataCriacao | date: 'dd/MM/yyyy' }}</span>
-  </ion-col>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="materia">
+        <span>{{ materia.materia.toUpperCase() }}</span>
+      </ion-col>
+      <ion-col class="frequencia-row">
+        <span *ngIf="media >= 75" class="media-div-pos">
+          <span class="media">{{ media }}%</span>
+        </span>
+        <span *ngIf="media < 75" class="media-div-neg">
+          <span class="media">{{ media }}%</span>
+        </span>
+      </ion-col>
+    </ion-row>
+    <ion-row class="date">
+      <div>
+        <span>{{ materia.dataCriacao | date: 'dd/MM/yyyy' }}</span>
+      </div>
+    </ion-row>
+  </ion-grid>
 </ion-item>

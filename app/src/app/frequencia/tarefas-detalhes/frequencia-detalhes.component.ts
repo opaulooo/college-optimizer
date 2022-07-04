@@ -12,8 +12,7 @@ import { IMateria } from 'src/app/shared/interfaces/materia';
 })
 export class FrequenciaDetalhesComponent implements OnInit {
   editar = false;
-  frequencia: IMateria = null;
-  materias: Array<any> = [];
+  materias: IMateria;
 
   frequenciaForm: FormGroup = new FormGroup({
     ID: new FormControl(null, Validators.required),
@@ -32,62 +31,43 @@ export class FrequenciaDetalhesComponent implements OnInit {
     private route: ActivatedRoute,
     private alertController: AlertController,
     private service: DataService) {
-    this.materias = this.router.getCurrentNavigation().extras.state.materiasList;
-    this.frequencia = this.router.getCurrentNavigation().extras.state.materia as IMateria;
+    this.materias = this.router.getCurrentNavigation().extras.state.materias;
     this.route.data.subscribe(res => {
       this.editar = res.editar;
     });
   }
 
   async ngOnInit() {
-    // console.log(this.materias, this.frequencia, this.editar, this.frequenciaForm.value.notificar);
+    console.log(this.materias, this.editar, this.frequenciaForm.value.notificar);
 
-    if (!this.frequencia && this.editar) {
+    if (!this.materias && this.editar) {
       this.navCtrl.navigateRoot('/abas/frequencias');
     }
 
-    if (this.editar) {
-      this.createEditarForm();
-      console.log(this.frequenciaForm.value);
-    } else {
-      this.createNovoForm();
-      console.log(this.frequenciaForm.value);
-    }
-  }
-
-  createNovoForm() {
-    this.frequenciaForm = new FormGroup({
-      ID: new FormControl(null, Validators.required),
-      materia: new FormControl('', Validators.required),
-      quantidadeaulas: new FormControl(null, Validators.required),
-      quantidadefaltas: new FormControl(null, Validators.required),
-      dataCriacao: new FormControl(null),
-      dataUltimaAtualizacao: new FormControl(null),
-      dataDeletado: new FormControl(null),
-      deletado: new FormControl(false)
-    });
+    this.createEditarForm();
   }
 
   createEditarForm() {
+
+    let freq = (((this.materias.quantidadeaulas * 0.25)) - this.materias.quantidadefaltas);
+
+
     this.frequenciaForm = new FormGroup({
-      ID: new FormControl(this.frequencia.ID, Validators.required),
-      materia: new FormControl(this.frequencia.materia, Validators.required),
-      quantidadeaulas: new FormControl(this.frequencia.quantidadeaulas, Validators.required),
-      quantidadefaltas: new FormControl(this.frequencia.quantidadefaltas, Validators.required), dataCriacao: new FormControl(this.frequencia.dataCriacao, Validators.required),
-      dataUltimaAtualizacao: new FormControl(this.frequencia.dataUltimaAtualizacao, Validators.required),
-      dataDeletado: new FormControl(this.frequencia.dataDeletado),
+      ID: new FormControl(this.materias.ID, Validators.required),
+      materia: new FormControl(this.materias.materia, Validators.required),
+      quantidadeaulas: new FormControl(this.materias.quantidadeaulas, Validators.required),
+      quantidadefaltas: new FormControl(this.materias.quantidadefaltas, Validators.required),
+      podeFaltar: new FormControl(freq < 0 ? 'Reprovado por falta!' : freq, Validators.required),
+      dataCriacao: new FormControl(this.materias.dataCriacao, Validators.required),
+      dataUltimaAtualizacao: new FormControl(this.materias.dataUltimaAtualizacao, Validators.required),
+      dataDeletado: new FormControl(this.materias.dataDeletado),
       deletado: new FormControl(false)
     });
   }
 
   async atualizaFrequencia(updateFrequencia: IMateria) {
     console.log(updateFrequencia)
-    if (
-      updateFrequencia.materia != null && updateFrequencia.materia != '' &&
-      updateFrequencia.descricao != null && updateFrequencia.descricao != '' &&
-      updateFrequencia.quantidadeaulas != null &&
-      updateFrequencia.quantidadefaltas != null
-    ) {
+    if (updateFrequencia.quantidadefaltas != null) {
       this.service.putFrequencia(updateFrequencia).subscribe((response) => {
         console.log(response)
       });

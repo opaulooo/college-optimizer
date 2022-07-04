@@ -20,6 +20,7 @@ export class MateriasDetalhesComponent implements OnInit {
     ID: new FormControl(null, Validators.required),
     materia: new FormControl(null, Validators.required),
     descricao: new FormControl(null, Validators.required),
+    quantidadeaulas: new FormControl(null, Validators.required),
     periodo: new FormControl(null),
     dataCriacao: new FormControl(new Date()),
     dataUltimaAtualizacao: new FormControl(new Date()),
@@ -46,10 +47,10 @@ export class MateriasDetalhesComponent implements OnInit {
 
     if (this.editar) {
       this.createEditarForm();
-      // console.log(this.materiaForm.value);
+      console.log(this.materiaForm.value);
     } else {
       this.createNovoForm();
-      // console.log(this.materiaForm.value);
+      console.log(this.materiaForm.value);
     }
   }
 
@@ -59,6 +60,7 @@ export class MateriasDetalhesComponent implements OnInit {
       materia: new FormControl('', Validators.required),
       descricao: new FormControl('', Validators.required),
       periodo: new FormControl('', Validators.required),
+      quantidadeaulas: new FormControl(null, Validators.required),
       dataCriacao: new FormControl(new Date()),
       dataUltimaAtualizacao: new FormControl(new Date()),
       dataDeletado: new FormControl(null),
@@ -71,6 +73,7 @@ export class MateriasDetalhesComponent implements OnInit {
       ID: new FormControl(this.materia.ID, Validators.required),
       materia: new FormControl(this.materia.materia, Validators.required),
       descricao: new FormControl(this.materia.descricao, Validators.required),
+      quantidadeaulas: new FormControl(this.materia.quantidadeaulas, Validators.required),
       periodo: new FormControl(this.materia.periodo),
       dataCriacao: new FormControl(new Date()),
       dataUltimaAtualizacao: new FormControl(new Date()),
@@ -83,7 +86,8 @@ export class MateriasDetalhesComponent implements OnInit {
 
     if (addMateria.materia != null && addMateria.materia != '' &&
       addMateria.periodo != null &&
-      addMateria.descricao != null && addMateria.descricao != ''
+      addMateria.descricao != null && addMateria.descricao != '' &&
+      addMateria.quantidadeaulas != null
     ) {
       this.service.postMateria(addMateria).subscribe((response) => {
         console.log(response)
@@ -100,8 +104,11 @@ export class MateriasDetalhesComponent implements OnInit {
 
     if (updateMateria.materia != null && updateMateria.materia != '' &&
       updateMateria.periodo != null &&
-      updateMateria.descricao != null && updateMateria.descricao != ''
+      updateMateria.descricao != null && updateMateria.descricao != '' &&
+      updateMateria.quantidadeaulas != null
     ) {
+      console.log(updateMateria)
+      updateMateria.quantidadeaulas = updateMateria.quantidadeaulas;
       this.service.putMateria(updateMateria).subscribe((response) => {
         console.log(response)
       });
