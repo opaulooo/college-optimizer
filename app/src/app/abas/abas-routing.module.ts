@@ -20,8 +20,8 @@ const routes: Routes = [
         loadChildren: () => import('../calendario/calendario.module').then(m => m.CalendarioPageModule)
       },
       {
-        path: 'notas',
-        loadChildren: () => import('../notas/notas.module').then(m => m.NotasPageModule)
+        path: 'frequencia',
+        loadChildren: () => import('../frequencia/frequencia.module').then(m => m.FrequenciaPageModule)
       },
       {
         path: 'resumos',
