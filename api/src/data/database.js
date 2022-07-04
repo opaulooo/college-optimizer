@@ -28,7 +28,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
         (
           ID INTEGER PRIMARY KEY AUTOINCREMENT,
           materia text,
-          periodo text,
+          periodo real,
           descricao text,
           quantidadeaulas real,
           quantidadefaltas real,
