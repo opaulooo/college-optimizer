@@ -27,6 +27,8 @@ async function postMateria(materia) {
             materia: materia.materia,
             periodo: materia.periodo,
             descricao: materia.descricao,
+            quantidadeaulas: materia.quantidadeaulas,
+            quantidadefaltas: materia.quantidadefaltas, 
             dataCriacao: data,
             dataUltimaAtualizacao: data,
             dataDeletado: null,
@@ -63,6 +65,35 @@ async function putMateria(materia) {
                     materia = '${materia.materia}',
                     periodo = '${materia.periodo}',
                     descricao = '${materia.descricao}',
+                    quantidadeaulas=${materia.quantidadeaulas},
+                    quantidadefaltas=${materia.quantidadeaulas},
+                    dataUltimaAtualizacao = ${data}
+                    WHERE ID = '${materia.id}'
+                `;
+
+        try {
+            db.run(query);
+            res({
+                ok: true
+            });
+        } catch (err) {
+            console.log(err);
+            res({
+                ok: false
+            });
+        }
+    });
+}
+
+
+async function putFrequencia(materia) {
+    return new Promise(async (res, rej) => {
+
+        let data = (new Date().getTime());
+        query = `
+                    UPDATE MATERIAS SET
+                    quantidadeaulas=${materia.quantidadeaulas},
+                    quantidadefaltas=${materia.quantidadeaulas},
                     dataUltimaAtualizacao = ${data}
                     WHERE ID = '${materia.id}'
                 `;
@@ -170,6 +201,33 @@ module.exports = {
         })
 
     },
+
+    async updatefrequencia(req, res) {
+        var frequencia = req.body;
+        await putFrequencia(frequencia).then(async (response) => {
+            if (response.ok) {
+
+                console.log("Frequencia Atualizada com Sucesso!")
+                res.json({
+                    ok: true,
+                    response: "Frequencia Atualizada com Sucesso!"
+                });
+            } else {
+                res.json({
+                    ok: true,
+                    error: err
+                });
+            }
+        }).catch((err) => {
+            // console.log(err)
+            res.json({
+                ok: true,
+                error: err
+            });
+        })
+
+    },
+
 
     async delete(req, res) {
 

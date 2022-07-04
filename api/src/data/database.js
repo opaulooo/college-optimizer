@@ -30,6 +30,8 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
           materia text,
           periodo text,
           descricao text,
+          quantidadeaulas real,
+          quantidadefaltas real,
           dataCriacao date,
           dataUltimaAtualizacao date,
           dataDeletado date,

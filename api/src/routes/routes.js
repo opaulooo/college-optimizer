@@ -13,6 +13,7 @@ router.delete('/resumos', resumosController.delete);
 router.get('/materias', materiasController.get);
 router.post('/materias', materiasController.post);
 router.put('/materias', materiasController.update);
+router.put('/frequencias', materiasController.updatefrequencia);
 router.delete('/materias', materiasController.delete);
 
 module.exports = router;
