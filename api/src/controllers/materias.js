@@ -17,14 +17,30 @@ async function getMaterias() {
     })
 }
 
+async function getMateriasKeys() {
+    return new Promise(async (res, rej) => {
+        var materias;
+
+        let query = `SELECT ID as key, materia as value FROM MATERIAS WHERE Deletado = false;`;
+
+        await utils.getData(query).then((response) => {
+            materias = response;
+        }).catch((err) => {
+            console.log(err);
+        })
+
+        res(materias)
+    })
+}
+
 async function postMateria(materia) {
     return new Promise(async (res, rej) => {
 
         let data = (new Date().getTime());
 
-
         let addMateria = {
             materia: materia.materia,
+            titulo: materia.titulo,
             periodo: materia.periodo,
             descricao: materia.descricao,
             quantidadeaulas: materia.quantidadeaulas,
@@ -39,7 +55,6 @@ async function postMateria(materia) {
                     INSERT INTO MATERIAS(${Object.keys(addMateria).join(",")})
                     values(${'?'.repeat(Object.keys(addMateria).length).split('').join(',')})
                 `;
-
         params = Object.values(addMateria);
         try {
             db.run(query, params);
@@ -62,6 +77,7 @@ async function putMateria(materia) {
         query = `
                     UPDATE MATERIAS SET
                     materia = '${materia.materia}',
+                    titulo = '${materia.titulo}',
                     periodo = '${materia.periodo}',
                     descricao = '${materia.descricao}',
                     quantidadeaulas=${materia.quantidadeaulas},
@@ -141,6 +157,17 @@ module.exports = {
     async get(req, res) {
         var materias;
         await getMaterias().then(async (response) => {
+            materias = response;
+            res.send(materias)
+        }).catch((err) => {
+            // console.log(err)
+            res.send(err)
+        })
+    },
+
+    async getKeys(req, res) {
+        var materias;
+        await getMateriasKeys().then(async (response) => {
             materias = response;
             res.send(materias)
         }).catch((err) => {

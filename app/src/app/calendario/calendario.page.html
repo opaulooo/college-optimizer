@@ -4,5 +4,28 @@
       <ion-title size="large">Calendário</ion-title>
     </ion-toolbar>
   </ion-header>
-  <app-explore-container name="Calendário"></app-explore-container>
+
+
+  <ion-toolbar>
+    <ion-row>
+      <ion-title class="title"> {{ viewTitle }} </ion-title>
+      <ion-buttons class="btn-group">
+        <ion-button [disabled]="isToday" (click)="today()">Hoje</ion-button>
+        <ion-button color="success" (click)="changeMode('month')">Mês</ion-button>
+        <ion-button color="primary" (click)="changeMode('week')">Semana</ion-button>
+        <ion-button color="secondary" (click)="changeMode('day')">Dia</ion-button>
+      </ion-buttons>
+    </ion-row>
+  </ion-toolbar>
+  <ion-content>
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
+      (onCurrentDateChanged)="onCurrentDateChanged($event)" (onTitleChanged)="onViewTitleChanged($event)"
+      (onTimeSelected)="onTimeSelected($event)" [step]="calendar.step">
+    </calendar>
+  </ion-content>
+
 </ion-content>

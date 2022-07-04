@@ -2,8 +2,7 @@ ion-item {
   margin: 3px;
   border: 1px solid #dfdfdf;
   border-radius: 10px;
-  max-width: 95%;
-  min-width: 40vh;
+  width: 85vw;
 }
 
 .nome {
@@ -18,6 +17,7 @@ ion-item {
 
 .descricao {
   font-size: 13px;
+  width: 80vw;
 }
 
 .date {

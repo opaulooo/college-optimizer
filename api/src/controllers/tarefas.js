@@ -1,31 +1,34 @@
 const utils = require('../utils/funcoes')
 const db = require('../data/database')
 
-async function getResumos() {
+async function getTarefas() {
     return new Promise(async (res, rej) => {
-        var resumos;
+        var tarefas;
 
-        let query = `SELECT * FROM RESUMOS WHERE Deletado = false;`;
+        let query = `SELECT * FROM TAREFAS WHERE Deletado = false;`;
 
         await utils.getData(query).then((response) => {
-            resumos = response;
+            tarefas = response;
         }).catch((err) => {
             console.log(err);
         })
 
-        res(resumos)
+        res(tarefas)
     })
 }
 
-async function postResumo(resumo) {
+async function postTarefa(tarefa) {
     return new Promise(async (res, rej) => {
 
         let data = (new Date().getTime());
-        let addResumo = {
-            titulo: resumo.titulo,
-            materia: resumo.materia,
-            breveDescricao: resumo.breveDescricao,
-            resumo: resumo.resumo,
+        let addTarefa = {
+            titulo: tarefa.titulo,
+            descricao: tarefa.descricao,
+            materia: tarefa.materia,
+            dataInicio: tarefa.dataInicio,
+            dataFim: tarefa.dataFim,
+            concluido: tarefa.concluido,
+            notificar: tarefa.notificar,
             dataCriacao: data,
             dataUltimaAtualizacao: data,
             dataDeletado: null,
@@ -33,11 +36,11 @@ async function postResumo(resumo) {
         }
 
         query = `
-                    INSERT INTO RESUMOS(${Object.keys(addResumo).join(",")})
-                    values(${'?'.repeat(Object.keys(addResumo).length).split('').join(',')})
+                    INSERT INTO TAREFAS(${Object.keys(addTarefa).join(",")})
+                    values(${'?'.repeat(Object.keys(addTarefa).length).split('').join(',')})
                 `;
 
-        params = Object.values(addResumo);
+        params = Object.values(addTarefa);
 
         try {
             db.run(query, params);
@@ -53,21 +56,22 @@ async function postResumo(resumo) {
     });
 }
 
-async function putResumo(resumo) {
+async function putTarefa(tarefa) {
     return new Promise(async (res, rej) => {
-
         let data = (new Date().getTime());
-        
+
         query = `
-                    UPDATE RESUMOS SET
-                    titulo = '${resumo.titulo}',
-                    materia = '${resumo.materia}',
-                    breveDescricao = '${resumo.breveDescricao}',
-                    resumo = '${resumo.resumo}',
+                    UPDATE TAREFAS SET
+                    titulo = '${tarefa.titulo}',
+                    descricao = '${tarefa.descricao}',
+                    materia = '${tarefa.materia}',
+                    dataInicio= '${tarefa.dataInicio}',
+                    dataFim= '${tarefa.dataFim}',
+                    concluido= ${tarefa.concluido},
+                    notificar= ${tarefa.notificar},
                     dataUltimaAtualizacao = ${data}
-                    WHERE ID = ${resumo.ID}
+                    WHERE ID = '${tarefa.ID}'
                 `;
-                
 
         try {
             db.run(query);
@@ -83,16 +87,17 @@ async function putResumo(resumo) {
     });
 }
 
-async function deleteResumo(id) {
+async function deleteTarefa(id) {
     return new Promise(async (res, rej) => {
 
         let data = (new Date().getTime());
         query = `
-                    UPDATE RESUMOS SET
+                    UPDATE TAREFAS SET
                     dataDeletado = ${data},
                     deletado = true
-                    WHERE ID = ${id}
+                    WHERE ID = '${id}'
                 `;
+
         try {
             db.run(query);
             res({
@@ -110,10 +115,10 @@ async function deleteResumo(id) {
 
 module.exports = {
     async get(req, res) {
-        var resumos;
-        await getResumos().then(async (response) => {
-            resumos = response;
-            res.send(resumos)
+        var tarefas;
+        await getTarefas().then(async (response) => {
+            tarefas = response;
+            res.send(tarefas)
         }).catch((err) => {
             // console.log(err)
             res.send(err)
@@ -121,15 +126,15 @@ module.exports = {
     },
 
     async post(req, res) {
-        var resumo = req.body;
-        await postResumo(resumo).then(async (response) => {
+        var tarefa = req.body;
+        await postTarefa(tarefa).then(async (response) => {
             if (response.ok) {
 
-                console.log("Resumo Adicionado com Sucesso!")
+                console.log("Tarefa Adicionada com Sucesso!")
 
                 res({
                     ok: true,
-                    response: "Resumo Adicionado com Sucesso!"
+                    response: "Tarefa Adicionada com Sucesso!"
                 });
             } else {
                 res.json({
@@ -147,14 +152,14 @@ module.exports = {
     },
 
     async update(req, res) {
-        var resumo = req.body;
-        await putResumo(resumo).then(async (response) => {
+        var tarefa = req.body;
+        await putTarefa(tarefa).then(async (response) => {
             if (response.ok) {
 
-                console.log("Resumo Atualizado com Sucesso!")
+                console.log("Tarefa Atualizada com Sucesso!")
                 res.json({
                     ok: true,
-                    response: "Resumo Atualizado com Sucesso!"
+                    response: "Tarefa Atualizada com Sucesso!"
                 });
             } else {
                 res.json({
@@ -175,14 +180,14 @@ module.exports = {
     async delete(req, res) {
 
         var id = req.params.id;
-        await deleteResumo(id).then(async (response) => {
+        await deleteTarefa(id).then(async (response) => {
             if (response.ok) {
 
-                console.log("Resumo Deletado com Sucesso!")
+                console.log("Tarefa Deletada com Sucesso!")
 
                 res.json({
                     ok: true,
-                    response: "Resumo Deletado com Sucesso!"
+                    response: "Tarefa Deletada com Sucesso!"
                 });
             } else {
                 res.json({
