@@ -84,7 +84,8 @@ export class CalendarioPage {
   }
 
   onViewTitleChanged(title) {
-    this.viewTitle = this.formatarData(new Date(title).toLocaleDateString());
+    if (new Date(title).toLocaleDateString() != 'Invalid Date')
+      this.viewTitle = this.formatarData(new Date(title).toLocaleDateString());
   }
 
   onEventSelected(event) {
@@ -111,19 +112,22 @@ export class CalendarioPage {
 
   addEvents(eventos: Array<ITarefa>) {
     var tarefas = [];
+    console.log(eventos)
     eventos.forEach((element: ITarefa) => {
       var dateStart = new Date(element.dataInicio);
       var dateEnd = new Date(element.dataFim);
 
       var startTime = new Date(dateStart.getFullYear(), dateStart.getMonth(), dateStart.getDate(), 0, dateStart.getMinutes());
       var endTime = new Date(dateEnd.getFullYear(), dateEnd.getMonth(), dateEnd.getDate(), 0, dateEnd.getMinutes());
-
-      tarefas.push({
-        title: `${startTime.toLocaleDateString()} - ${endTime.toLocaleDateString()}:  ${element.materia} - ${element.titulo}`,
-        startTime: startTime,
-        endTime: endTime,
-        allDay: false
-      });
+      let index = this.materias.findIndex((el) => { return el.key == element.materia })
+      if (index != -1) {
+        tarefas.push({
+          title: `${startTime.toLocaleDateString()} - ${endTime.toLocaleDateString()}:  ${this.materias[index].value} - ${element.titulo}`,
+          startTime: startTime,
+          endTime: endTime,
+          allDay: false
+        });
+      }
     });
     console.log(tarefas)
     this.events = tarefas;
@@ -148,11 +152,17 @@ export class CalendarioPage {
   }
 
   formatarData(str) {
+    console.log(str)
     var partes = str.split('/').map(Number);
     var data = new Date(20 + partes[2] ? partes[2].toString() : '', partes[1] - 1, partes[0]);
     var diaSemana = this.dias[data.getDay() % 7];
     var mes = this.meses[data.getMonth()];
-    return [diaSemana + ', ' + data.getDate(), 'de ' + mes[0].toUpperCase() + mes.slice(1, 100).toLowerCase()].join(' ');
+    console.log(data)
+    console.log(this.meses)
+    console.log(mes)
+    if (mes)
+      return [diaSemana + ', ' + data.getDate(), 'de ' + mes[0].toUpperCase() + mes.slice(1, 100).toLowerCase()].join(' ');
+    return null
   }
 
 }

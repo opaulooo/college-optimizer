@@ -12,7 +12,6 @@ import { IResumo } from '../shared/interfaces/resumo';
 export class ResumosPage {
   resumos: Array<IResumo> = [];
   materias: Array<any> = [];
-
   constructor(private navCtrl: NavController, private service: DataService) { }
 
   ngOnInit() {
@@ -38,19 +37,22 @@ export class ResumosPage {
   }
 
 
+  callback() {
+    return new Promise((resolve, reject) => {
+      this.ngOnInit();
+      resolve(null);
+    })
+  }
+
   irDetalhes(resumo: IResumo) {
     this.navCtrl.navigateForward('/abas/resumos/editar', {
-      state: { resumo: resumo, materiasList: this.materias },
-    }).then(() => {
-      this.ngOnInit();
+      state: { resumo: resumo, materiasList: this.materias, callback: this.callback() },
     });
   }
 
   irAdicionar() {
     this.navCtrl.navigateForward('/abas/resumos/novo', {
-      state: { resumo: null, materiasList: this.materias },
-    }).then(() => {
-      this.ngOnInit();
-    });
+      state: { resumo: null, materiasList: this.materias, callback: this.callback() },
+    })
   }
 }
